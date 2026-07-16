@@ -1,67 +1,101 @@
 "use client";
 
-import { motion } from "framer-motion";
-import { Trophy, Star, Target, Users } from "lucide-react";
+import { Trophy, Star, Target, Shield, BookOpen } from "lucide-react";
+import SpotlightCard from "./SpotlightCard";
 
-const achievements = [
+interface Achievement {
+  title: string;
+  metric: string;
+  description: string;
+  icon: React.ComponentType<any>;
+  color: string;
+}
+
+const realAchievements: Achievement[] = [
   {
-    title: "Rank 1 in AIML",
-    description: "Highest academic standing among 250+ students in the Artificial Intelligence & Machine Learning department at VIT Vellore.",
+    title: "Rank 1 AIML",
+    metric: "#1 Department Rank",
+    description: "Ranked 1st in the Artificial Intelligence & Machine Learning department among a cohort of 250+ students at VIT Vellore.",
     icon: Trophy,
-    stat: "9.68 CGPA"
+    color: "text-yellow-500"
   },
   {
-    title: "350+ DSA Solved",
-    description: "Expert-level problem solving with 350+ challenges cleared on LeetCode and competitive platforms.",
+    title: "Highest CGPA",
+    metric: "9.74 / 10.0",
+    description: "Maintained outstanding academic standing throughout B.Tech coursework, securing top merit honors.",
+    icon: Star,
+    color: "text-emerald-500"
+  },
+  {
+    title: "350+ LeetCode DSA",
+    metric: "350+ Problems",
+    description: "Solved 350+ data structures and algorithms challenges across LeetCode and competitive programming platforms.",
     icon: Target,
-    stat: "Gold Level"
+    color: "text-blue-500"
   },
   {
-    title: "Program Representative",
-    description: "Elected to lead and coordinate strategic initiatives for a cohort of 250+ students.",
-    icon: Users,
-    stat: "250+ Students"
+    title: "VIT Merit Scholarship",
+    metric: "Rank 1st Scholarship",
+    description: "Awarded top academic merit scholarships by the Vellore Institute of Technology for branch-wide performance.",
+    icon: Shield,
+    color: "text-red-500"
+  },
+  {
+    title: "Research Internship Selection",
+    metric: "IIT Jodhpur Selection",
+    description: "Selected for deep learning research intern position in Medical Imaging Segmentation at IIT Jodhpur.",
+    icon: BookOpen,
+    color: "text-indigo-400"
   }
 ];
 
 export default function Achievements() {
   return (
-    <section className="py-24 relative">
-      <div className="container mx-auto px-6">
-        <div className="mb-16 text-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold tracking-tighter mb-4"
-          >
-            Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">Milestones</span>
-          </motion.h2>
+    <section id="achievements" className="py-14 relative bg-black text-white">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-850 to-transparent" />
+
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+        
+        {/* Header */}
+        <div className="text-center max-w-2xl mx-auto mb-8">
+          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-zinc-500 uppercase">
+            Validated Milestones
+          </h2>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-2">
+            Academic &amp; Coding Achievements
+          </h1>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {achievements.map((item, idx) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0, scale: 0.95 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.5 }}
-              className="glass p-8 rounded-3xl border border-border text-center group hover:border-foreground/10 transition-all flex flex-col"
-            >
-              <div className="w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br from-yellow-400/10 to-orange-500/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:rotate-3 transition-transform border border-yellow-500/20">
-                <item.icon className="w-8 h-8 text-yellow-500" />
-              </div>
-              <div className="mb-2 inline-block px-3 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-500 text-[10px] font-bold uppercase tracking-widest mx-auto">
-                {item.stat}
-              </div>
-              <h3 className="text-xl font-bold text-foreground mb-3 mt-2">{item.title}</h3>
-              <p className="text-muted-foreground text-sm leading-relaxed">
-                {item.description}
-              </p>
-            </motion.div>
-          ))}
+        {/* Grid Layout */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {realAchievements.map((item) => {
+            const Icon = item.icon;
+            return (
+              <SpotlightCard
+                key={item.title}
+                glowColor="rgba(129, 140, 248, 0.03)"
+                className="border-zinc-900 bg-zinc-950/40 p-4.5 sm:p-5 flex flex-col justify-between min-h-[145px]"
+                enableTilt={false}
+              >
+                <div className="flex justify-between items-start">
+                  <div className={`p-1.5 rounded bg-black border border-zinc-900 ${item.color}`}>
+                    <Icon className="w-4 h-4" />
+                  </div>
+                  <span className="text-[10px] font-mono text-zinc-500 uppercase">Verified</span>
+                </div>
+
+                <div className="mt-4">
+                  <span className="text-lg font-bold font-mono text-white block">{item.metric}</span>
+                  <span className="text-xs font-mono text-indigo-400 font-semibold mt-0.5 block">{item.title}</span>
+                  <p className="text-zinc-400 text-xs mt-1.5 font-sans font-light leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+              </SpotlightCard>
+            );
+          })}
         </div>
+
       </div>
     </section>
   );

@@ -1,147 +1,365 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ExternalLink, Database, Sparkles, BrainCircuit, ShieldCheck, Zap, BarChart3 } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
+import SpotlightCard from "./SpotlightCard";
 
-const projects = [
+interface ProjectItem {
+  id: string;
+  title: string;
+  category: string;
+  description: string;
+  problem: string;
+  solution: string;
+  tech: string[];
+  architecture: string[];
+  github: string;
+  demo: string;
+  metric: { label: string; value: string };
+  previewNode?: React.ReactNode;
+}
+
+const featuredProjects: ProjectItem[] = [
   {
-    title: "Semantic Search Engine",
-    description: "High-performance vector search engine using transformer embeddings and FAISS. Optimized for extreme scalability through fuzzy-clustering caching.",
-    tech: ["SentenceTransformers", "FAISS", "Docker", "Python", "GMM"],
-    highlights: [
-      "Sub-100ms similarity retrieval",
-      "Cluster-aware semantic caching layer",
-      "Complexity: O(N) → O(K) reduction",
-      "Gaussian Mixture Model integration"
+    id: "mg-net",
+    title: "MG-Net Ultrasound Adaptation",
+    category: "Deep Learning / Medical Imaging",
+    description: "Domain adaptation model processing fetal ultrasound scans to resolve anatomical boundaries under low-contrast noise.",
+    problem: "2D fetal ultrasound sweep scans suffer from severe acoustic shadows and speckle noise, making boundaries of fetal organs highly ambiguous for standard CNN structures.",
+    solution: "Adapted Multi-Grid networks (MG-Net) integrated with linear state-space models (Vision Mamba) to capture multi-scale spatial details, achieving high pixel-level accuracy.",
+    tech: ["Python", "PyTorch", "MG-Net", "Vision Mamba", "Speckle Filters"],
+    architecture: [
+      "2D Ultrasound sweep scan frame ingestion",
+      "Speckle noise filtering & Multi-Grid decomposition",
+      "Mamba state-space sequence modeling blocks",
+      "Boundary segmentation mask calculation (94.2% Dice score)"
     ],
-    icon: Database,
+    github: "https://github.com/Rajat125tech/MG-Net-Ultrasound-Adaptation",
+    demo: "#",
+    metric: { label: "Dice Coefficient", value: "94.2%" }
+  },
+  {
+    id: "semantic-search",
+    title: "Semantic Search Engine",
+    category: "AI / Similarity Engines",
+    description: "High-performance vector search engine using sentence-level transformer embeddings and FAISS index matching.",
+    problem: "Standard linear scans of high-dimensional document vectors degrade lookup latency significantly as dataset volume grows.",
+    solution: "Engineered a vector search query engine leveraging SentenceTransformers, optimized with a cluster-aware Gaussian Mixture Model (GMM) semantic caching layer to reduce lookup complexity from O(N) to O(K).",
+    tech: ["SentenceTransformers", "FAISS", "Docker", "Python", "GMM"],
+    architecture: [
+      "Raw text document stream ingestion",
+      "High-dimensional vector embedding generation (SentenceTransformers)",
+      "Gaussian Mixture Model fuzzy-clustering cache lookups",
+      "FAISS index matching for similarity calculations (sub-100ms)"
+    ],
     github: "https://github.com/Rajat125tech/Semantic-Search-fuzzy-clustering",
     demo: "#",
-    color: "from-blue-500/20 to-indigo-500/20",
-    metric: { label: "Query Speedup", value: "Scalable O(K)" }
+    metric: { label: "Search Latency", value: "<100ms" }
   },
   {
-    title: "VastuZone",
-    description: "Gen-AI powered Vastu platform. Engineered with production-grade security and a scalable micro-backend infrastructure.",
-    tech: ["React", "Node.js", "MongoDB", "Socket.IO", "JWT"],
-    highlights: [
-      "Secure RBAC & Firebase-JWT Auth",
-      "Zod-validated API infrastructure",
-      "15% Lower Request Latency",
-      "80% Input Time Reduction"
+    id: "resume-screening",
+    title: "Resume Screening App",
+    category: "LLM / Text Analytics",
+    description: "Automated candidate qualification matching engine parsing PDFs against software engineering job descriptions.",
+    problem: "Recruiters spend hours manually reading profiles that do not align with target capabilities or requirements.",
+    solution: "Built a document parsing and qualification matcher that extracts candidate credentials from PDFs and computes semantic alignment scores.",
+    tech: ["TypeScript", "Next.js", "PDF.js", "LLM API"],
+    architecture: [
+      "Resume PDF document upload to system",
+      "Text extraction & block parsing via PDF.js",
+      "Key semantic capabilities extraction using LLMs",
+      "Relevance alignment matching and score calculations"
     ],
-    icon: ShieldCheck,
+    github: "https://github.com/Rajat125tech/resume-screening-app",
+    demo: "#",
+    metric: { label: "Evaluation Time", value: "<5 seconds" }
+  },
+  {
+    id: "vastuzone",
+    title: "VastuZone",
+    category: "Full-Stack AI Application",
+    description: "Generative AI consultation platform automating room-wise floor-plan plotting and interior geometry analysis.",
+    problem: "Analyzing floor-plans for structural guidelines is a slow, manual process requiring geometric alignment and calculation.",
+    solution: "Built a floor-plan parsing and layout generator reducing user input requirements by 80%. Implemented a secure backend with Zod validation and Firebase-JWT auth.",
+    tech: ["React", "Node.js", "MongoDB", "Socket.IO", "Firebase JWT", "Zod"],
+    architecture: [
+      "SVG / PNG layout upload & geometric coordinate normalizer",
+      "Node.js & Express REST controller API with Zod schema verification",
+      "Real-time event channel routing via Socket.IO",
+      "LLM query processing and MongoDB query persistence"
+    ],
     github: "https://github.com/Rajat125tech/VastuZone",
     demo: "https://vastuzone-frontend.onrender.com/",
-    color: "from-purple-500/20 to-pink-500/20",
-    metric: { label: "User Friction", value: "-80% Input" }
+    metric: { label: "Manual Input Saved", value: "80%" }
   },
   {
+    id: "fare-prediction",
     title: "Fare Prediction Engine",
-    description: "Real-time ML pricing engine. Architected for low-latency inference and high compute efficiency using gradient boosting.",
-    tech: ["FastAPI", "scikit-learn", "HuggingFace", "NumPy"],
-    highlights: [
-      "IP-scoped Rate Limiting & Security",
-      "35% Compute Reduction via Caching",
-      "Sub-150ms Inference Latency",
-      "Dynamic Feature Engineering"
+    category: "ML Inference Pipeline",
+    description: "Real-time regression model serving endpoint predicting multi-platform transit prices under heavy peak load.",
+    problem: "Real-time model inferences suffer from CPU bottlenecks and rate spikes under high concurrent user calls.",
+    solution: "Deployed a scikit-learn gradient boosting pricing service with rate-limiting and query-response caching, saving 35% of inference compute cycles.",
+    tech: ["FastAPI", "scikit-learn", "NumPy", "HuggingFace", "Docker", "Render"],
+    architecture: [
+      "FastAPI rate-limited HTTP endpoint",
+      "Feature engineering pipeline integrating traffic & surge data streams",
+      "Gradient Boosting model regressor (Scikit-Learn)",
+      "Query response cache & Render distributed load balancer"
     ],
-    icon: Zap,
     github: "https://github.com/Rajat125tech/dynamic-fare-backend",
     demo: "https://dynamic-fare.vercel.app/",
-    color: "from-green-500/20 to-emerald-500/20",
-    metric: { label: "Compute Efficiency", value: "+35% Save" }
+    metric: { label: "Compute Saved", value: "35%" }
+  },
+  {
+    id: "zerithdb",
+    title: "ZerithDB",
+    category: "Systems / Database Optimization",
+    description: "Database kernel refactoring introducing index cursor lookups to optimize paginated scanning.",
+    problem: "Standard database query pagination scans table indexes linearly, causing high memory overhead and execution latencies.",
+    solution: "Optimized database query execution kernel by refactoring linear scanning pagination schemes into B-Tree seek operations, achieving a ~365x speedup.",
+    tech: ["TypeScript", "Rust", "SQL", "B-Trees"],
+    architecture: [
+      "Paginated SQL request parsing",
+      "Cursor parameter decoding",
+      "B-Tree index seek operations (bypassing linear scans)",
+      "Early-termination query scanning & low-allocation output"
+    ],
+    github: "https://github.com/Rajat125tech/ZerithDB",
+    demo: "#",
+    metric: { label: "Query Latency", value: "0.5ms (365x)" }
+  }
+];
+
+const additionalProjects = [
+  {
+    title: "AI Task Infrastructure",
+    tech: ["Python", "Celery", "Redis", "Docker"],
+    description: "Asynchronous backend scheduler and queue orchestration running multi-agent execution loops with worker persistence.",
+    github: "https://github.com/Rajat125tech/ai-task-infra"
+  },
+  {
+    title: "AI Task App",
+    tech: ["TypeScript", "React", "Tailwind CSS"],
+    description: "Real-time task monitoring dashboard enabling users to trigger agent worker workflows and inspect loop outputs.",
+    github: "https://github.com/Rajat125tech/ai-task-app"
+  },
+  {
+    title: "Machine Vision Project",
+    tech: ["Python", "OpenCV", "PyTorch"],
+    description: "Object classification and boundary detection pipelines tracking target objects on video camera feeds.",
+    github: "https://github.com/Rajat125tech/Machine-Vision-project"
+  },
+  {
+    title: "VidTube Backend",
+    tech: ["JavaScript", "Node.js", "Express", "MongoDB"],
+    description: "YouTube-inspired video platform backend hosting user authentication, video transcoding hooks, and tweeting options.",
+    github: "https://github.com/Rajat125tech/VidTube"
+  },
+  {
+    title: "CPU Scheduler Simulator",
+    tech: ["C++", "STL"],
+    description: "Thread queue simulator modeling First-Come-First-Serve (FCFS), SJF, and Round Robin scheduler structures.",
+    github: "https://github.com/Rajat125tech"
+  },
+  {
+    title: "Compiler Project",
+    tech: ["JavaScript", "HTML5"],
+    description: "Lexical analysis compiler program converting arithmetic strings into structured AST trees and code runs.",
+    github: "https://github.com/Rajat125tech/Compiler-Project"
+  },
+  {
+    title: "Notes Task",
+    tech: ["Python", "Django", "PostgreSQL"],
+    description: "Task planner and note repository using relational database constraints for workspace organization.",
+    github: "https://github.com/Rajat125tech/Notes_task"
+  },
+  {
+    title: "Currency Converter",
+    tech: ["JavaScript", "CSS3"],
+    description: "Sleek frontend utility fetching active currency conversions and rendering instant result ratios.",
+    github: "https://github.com/Rajat125tech/CurrencyConverter"
   }
 ];
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-24 relative">
-      <div className="container mx-auto px-6">
-        <div className="mb-16">
-          <motion.h2
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-bold tracking-tighter mb-4"
-          >
-            Engineering <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Benchmarks</span>
-          </motion.h2>
-          <motion.p
-            initial={{ opacity: 0, x: -20 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-muted-foreground max-w-2xl"
-          >
-            Surgical applications of AI and Full-Stack engineering where performance, security, and scalability are the primary constraints.
-          </motion.p>
+    <section id="projects" className="py-14 relative bg-black text-white">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-850 to-transparent" />
+
+      <div className="container mx-auto px-6 max-w-6xl relative z-10">
+        
+        {/* Header */}
+        <div className="mb-10 text-left">
+          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-zinc-500 uppercase">
+            Production Portfolio
+          </h2>
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-2">
+            Featured Systems &amp; Projects
+          </h1>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
+        {/* Stacked Showcase Cards Layout */}
+        <div className="flex flex-col gap-8">
+          {featuredProjects.map((p, idx) => (
             <motion.div
-              key={project.title}
+              key={p.id}
               initial={{ opacity: 0, y: 30 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1, duration: 0.6 }}
-              whileHover={{ y: -10 }}
-              className="glass rounded-3xl overflow-hidden border border-border hover:border-foreground/10 transition-all flex flex-col group"
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.5, delay: idx * 0.05 }}
             >
-              <div className={`p-8 bg-gradient-to-br ${project.color} border-b border-border flex items-center justify-between`}>
-                <project.icon className="w-10 h-10 text-foreground" />
-                <div className="flex items-center gap-3 text-foreground">
-                   <div className="text-right mr-2">
-                      <div className="text-[10px] uppercase tracking-widest opacity-50 font-bold">{project.metric.label}</div>
-                      <div className="text-lg font-mono font-bold leading-tight">{project.metric.value}</div>
-                   </div>
-                </div>
-              </div>
-              
-              <div className="p-8 flex-grow flex flex-col">
-                <div className="flex items-center justify-between mb-4">
-                  <h3 className="text-2xl font-bold text-foreground">{project.title}</h3>
-                  <div className="flex items-center gap-2">
-                    <a href={project.github} target="_blank" rel="noopener noreferrer" className="p-2 bg-accent hover:bg-accent/80 rounded-full transition-colors text-foreground border border-border">
-                      <FaGithub className="w-4 h-4" />
-                    </a>
-                    {project.demo !== "#" && (
-                      <a href={project.demo} target="_blank" rel="noopener noreferrer" className="p-2 bg-accent hover:bg-accent/80 rounded-full transition-colors text-foreground border border-border">
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-                  </div>
-                </div>
-                
-                <p className="text-muted-foreground text-sm leading-relaxed mb-6">
-                  {project.description}
-                </p>
-                
-                <div className="mb-6 flex-grow">
-                  <h4 className="text-[10px] font-bold text-muted-foreground/80 uppercase tracking-[0.2em] mb-3">Technical Highlights</h4>
-                  <ul className="space-y-2.5">
-                    {project.highlights.map((highlight) => (
-                      <li key={highlight} className="text-sm text-muted-foreground flex items-start gap-2">
-                        <BarChart3 className="w-3.5 h-3.5 text-blue-400 mt-0.5 flex-shrink-0" />
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <SpotlightCard glowColor="rgba(129, 140, 248, 0.03)" className="border-zinc-900 bg-zinc-950/40 p-5">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+                  
+                  {/* Left Column: Details & Meta */}
+                  <div className="lg:col-span-5 flex flex-col justify-between gap-5">
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-between">
+                        <span className="text-[9px] font-mono text-indigo-400 font-bold uppercase tracking-widest bg-indigo-950/20 px-2 py-0.5 rounded border border-indigo-900/30">
+                          {p.category}
+                        </span>
+                        <div className="px-2.5 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] font-mono text-emerald-400 rounded">
+                          {p.metric.label}: {p.metric.value}
+                        </div>
+                      </div>
 
-                <div className="flex flex-wrap gap-2 pt-6 border-t border-border">
-                  {project.tech.map((tech) => (
-                    <span key={tech} className="text-[10px] font-mono font-bold text-muted-foreground bg-accent/50 px-2 py-1 rounded tracking-wider">
-                      {tech}
-                    </span>
-                  ))}
+                      <h3 className="text-xl font-bold text-white tracking-tight">{p.title}</h3>
+                      
+                      <div className="space-y-2 text-xs text-zinc-400 font-sans font-light leading-relaxed">
+                        <p>
+                          <strong className="text-zinc-300 font-medium">Problem:</strong> {p.problem}
+                        </p>
+                        <p>
+                          <strong className="text-zinc-300 font-medium">Solution:</strong> {p.solution}
+                        </p>
+                      </div>
+
+                      {/* Tech stack */}
+                      <div className="space-y-1">
+                        <span className="text-[9px] font-mono text-zinc-500 uppercase block">Engine Stack</span>
+                        <div className="flex flex-wrap gap-1">
+                          {p.tech.map((t) => (
+                            <span key={t} className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-850 text-[9px] font-mono text-zinc-300">
+                              {t}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Action buttons */}
+                    <div className="flex gap-3 border-t border-zinc-900/60 pt-4">
+                      <a
+                        href={p.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex-grow flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-zinc-900 bg-zinc-950 hover:bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[10px] transition-all"
+                      >
+                        <FaGithub className="w-3.5 h-3.5" />
+                        GitHub Code
+                      </a>
+                      {p.demo !== "#" && (
+                        <a
+                          href={p.demo}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="flex-grow flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-zinc-50 hover:bg-zinc-200 text-black font-mono text-[10px] font-semibold transition-all"
+                        >
+                          Launch Demo
+                          <ArrowUpRight className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+
+                  {/* Right Column: Architecture & Interface Preview */}
+                  <div className="lg:col-span-7 flex flex-col justify-between gap-4">
+                    <div className="rounded-xl border border-zinc-900/60 bg-zinc-950/20 p-4.5 flex-grow flex flex-col justify-between gap-4">
+                      <div>
+                        <h4 className="text-[10px] font-mono font-semibold text-zinc-500 uppercase tracking-wider mb-2.5">System Architecture Sequence</h4>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                          {p.architecture.map((step, idx) => (
+                            <div key={idx} className="flex items-center gap-2 px-2 py-1.5 bg-zinc-950 border border-zinc-900 rounded-lg text-[9px] font-mono">
+                              <span className="w-4 h-4 rounded-full bg-zinc-900 border border-zinc-800 text-[8px] text-zinc-400 flex items-center justify-center font-bold">
+                                0{idx + 1}
+                              </span>
+                              <span className="text-zinc-300 truncate">{step}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      {/* Code/Interface Mock Preview */}
+                      <div className="relative w-full h-[85px] bg-black/60 border border-zinc-900 rounded-lg p-2.5 font-mono text-[9px] text-zinc-400 overflow-hidden flex flex-col justify-between">
+                        <div className="flex items-center justify-between border-b border-zinc-900/60 pb-1.5 mb-1.5 text-zinc-500 text-[8px]">
+                          <span>system_kernel_trace.log</span>
+                          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+                        </div>
+                        <div className="flex-grow overflow-hidden text-zinc-500 space-y-1">
+                          <div><span className="text-indigo-400">INFO</span> [system] Initializing {p.title} modules...</div>
+                          <div><span className="text-emerald-400">OK</span> [kernel] Ingestion components configured successfully.</div>
+                          <div><span className="text-zinc-300">$ curl -X POST /api/v1/infer -d &apos;{"{"}&quot;model&quot;: &quot;{p.id}&quot;{"}"}&apos;</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
                 </div>
-              </div>
+              </SpotlightCard>
             </motion.div>
           ))}
         </div>
+
+        {/* ADDITIONAL ENGINEERING REPOSITORIES SECTION */}
+        <div className="mt-16">
+          <div className="mb-8">
+            <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-zinc-500 uppercase">
+              Additional Engineering Repositories
+            </h2>
+            <p className="text-zinc-400 mt-1 font-sans font-light text-xs">
+              Functional codebases, libraries, and utilities from my active GitHub workspace.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            {additionalProjects.map((p) => (
+              <SpotlightCard
+                key={p.title}
+                glowColor="rgba(255,255,255,0.01)"
+                className="border-zinc-900 bg-zinc-950/20 p-4 flex flex-col justify-between min-h-[140px]"
+                enableTilt={false}
+              >
+                <div className="space-y-2.5">
+                  <div className="flex items-center justify-between">
+                    <h4 className="font-mono text-xs font-bold text-white tracking-tight">{p.title}</h4>
+                    <a
+                      href={p.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-zinc-500 hover:text-white transition-colors"
+                    >
+                      <FaGithub className="w-3.5 h-3.5" />
+                    </a>
+                  </div>
+                  
+                  <p className="text-[11px] text-zinc-400 font-sans font-light leading-relaxed">
+                    {p.description}
+                  </p>
+                </div>
+
+                <div className="flex flex-wrap gap-1 mt-3 border-t border-zinc-900/60 pt-2">
+                  {p.tech.map((t) => (
+                    <span key={t} className="px-1 py-0.5 rounded bg-zinc-900/60 text-[8px] font-mono text-zinc-550">
+                      {t}
+                    </span>
+                  ))}
+                </div>
+              </SpotlightCard>
+            ))}
+          </div>
+        </div>
+
       </div>
     </section>
   );

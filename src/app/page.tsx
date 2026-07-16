@@ -1,8 +1,12 @@
+"use client";
+
 import Hero from "@/components/Hero";
 import About from "@/components/About";
-import Skills from "@/components/Skills";
+import TechStack from "@/components/TechStack";
 import Projects from "@/components/Projects";
-import OpenSource from "@/components/OpenSource";
+import LeetCodeDashboard from "@/components/LeetCodeDashboard";
+import GitHubDashboard from "@/components/GitHubDashboard";
+import Research from "@/components/Research";
 import Experience from "@/components/Experience";
 import Achievements from "@/components/Achievements";
 import Contact from "@/components/Contact";
@@ -12,10 +16,13 @@ export default function Home() {
     <>
       <Hero />
       <About />
-      <Achievements />
-      <Skills />
+      <TechStack />
       <Projects />
+      <LeetCodeDashboard />
+      <GitHubDashboard />
+      <Research />
       <Experience />
+      <Achievements />
       <Contact />
     </>
   );
