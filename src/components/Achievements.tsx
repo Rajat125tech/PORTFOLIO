@@ -51,17 +51,17 @@ const realAchievements: Achievement[] = [
 
 export default function Achievements() {
   return (
-    <section id="achievements" className="py-14 relative bg-black text-white">
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-850 to-transparent" />
+    <section id="achievements" className="py-14 relative bg-background text-foreground transition-colors duration-300">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-8">
-          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-zinc-500 uppercase">
+          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-muted-foreground uppercase">
             Validated Milestones
           </h2>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-2">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-2">
             Academic &amp; Coding Achievements
           </h1>
         </div>
@@ -74,20 +74,20 @@ export default function Achievements() {
               <SpotlightCard
                 key={item.title}
                 glowColor="rgba(129, 140, 248, 0.03)"
-                className="border-zinc-900 bg-zinc-950/40 p-4.5 sm:p-5 flex flex-col justify-between min-h-[145px]"
+                className="border-border bg-card/60 p-4.5 sm:p-5 flex flex-col justify-between min-h-[145px]"
                 enableTilt={false}
               >
                 <div className="flex justify-between items-start">
-                  <div className={`p-1.5 rounded bg-black border border-zinc-900 ${item.color}`}>
+                  <div className={`p-1.5 rounded bg-muted border border-border ${item.color}`}>
                     <Icon className="w-4 h-4" />
                   </div>
-                  <span className="text-[10px] font-mono text-zinc-500 uppercase">Verified</span>
+                  <span className="text-[10px] font-mono text-muted-foreground uppercase">Verified</span>
                 </div>
 
                 <div className="mt-4">
-                  <span className="text-lg font-bold font-mono text-white block">{item.metric}</span>
-                  <span className="text-xs font-mono text-indigo-400 font-semibold mt-0.5 block">{item.title}</span>
-                  <p className="text-zinc-400 text-xs mt-1.5 font-sans font-light leading-relaxed">
+                  <span className="text-lg font-bold font-mono text-foreground block">{item.metric}</span>
+                  <span className="text-xs font-mono text-indigo-600 dark:text-indigo-400 font-semibold mt-0.5 block">{item.title}</span>
+                  <p className="text-muted-foreground text-xs mt-1.5 font-sans font-light leading-relaxed">
                     {item.description}
                   </p>
                 </div>

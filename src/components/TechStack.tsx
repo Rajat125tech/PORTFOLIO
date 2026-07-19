@@ -44,16 +44,16 @@ const categories = [
 
 export default function TechStack() {
   return (
-    <section id="skills" className="py-14 relative bg-black text-white">
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-850 to-transparent" />
+    <section id="skills" className="py-14 relative bg-background text-foreground transition-colors duration-300">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="container mx-auto px-6 max-w-5xl relative z-10">
         
         {/* Header */}
         <div className="mb-12">
-          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-zinc-500 uppercase">
+          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-muted-foreground uppercase">
             Capabilities
           </h2>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-3">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-3">
             Technical Stack
           </h1>
         </div>
@@ -66,21 +66,21 @@ export default function TechStack() {
               <SpotlightCard
                 key={cat.title}
                 glowColor="rgba(255,255,255,0.01)"
-                className="border-zinc-900 bg-zinc-950/20 p-5 flex flex-col gap-4"
+                className="border-border bg-card/60 p-5 flex flex-col gap-4"
                 enableTilt={false}
               >
                 <div className="flex items-center gap-2.5">
-                  <div className={`p-1.5 rounded bg-zinc-900 border border-zinc-800 ${cat.color}`}>
+                  <div className={`p-1.5 rounded bg-muted border border-border ${cat.color}`}>
                     <Icon className="w-4 h-4" />
                   </div>
-                  <h3 className="font-mono text-sm font-bold text-white tracking-tight">{cat.title}</h3>
+                  <h3 className="font-mono text-sm font-bold text-foreground tracking-tight">{cat.title}</h3>
                 </div>
 
                 <div className="flex flex-wrap gap-1.5">
                   {cat.skills.map((skill) => (
                     <span
                       key={skill}
-                      className="px-2.5 py-1 text-xs font-mono bg-zinc-900/60 border border-zinc-850 rounded text-zinc-400 hover:text-white hover:border-zinc-700 transition-colors cursor-default"
+                      className="px-2.5 py-1 text-xs font-mono bg-muted/60 border border-border rounded text-muted-foreground hover:text-foreground hover:border-foreground/20 transition-colors cursor-default"
                     >
                       {skill}
                     </span>

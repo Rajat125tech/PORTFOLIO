@@ -184,17 +184,17 @@ const additionalProjects = [
 
 export default function Projects() {
   return (
-    <section id="projects" className="py-14 relative bg-black text-white">
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-850 to-transparent" />
+    <section id="projects" className="py-14 relative bg-background text-foreground transition-colors duration-300">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
         
         {/* Header */}
         <div className="mb-10 text-left">
-          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-zinc-500 uppercase">
+          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-muted-foreground uppercase">
             Production Portfolio
           </h2>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-2">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-2">
             Featured Systems &amp; Projects
           </h1>
         </div>
@@ -209,38 +209,38 @@ export default function Projects() {
               viewport={{ once: true, margin: "-100px" }}
               transition={{ duration: 0.5, delay: idx * 0.05 }}
             >
-              <SpotlightCard glowColor="rgba(129, 140, 248, 0.03)" className="border-zinc-900 bg-zinc-950/40 p-5">
+              <SpotlightCard glowColor="rgba(129, 140, 248, 0.03)" className="border-border bg-card/60 p-5">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
                   
                   {/* Left Column: Details & Meta */}
                   <div className="lg:col-span-5 flex flex-col justify-between gap-5">
                     <div className="space-y-4">
                       <div className="flex items-center justify-between">
-                        <span className="text-[9px] font-mono text-indigo-400 font-bold uppercase tracking-widest bg-indigo-950/20 px-2 py-0.5 rounded border border-indigo-900/30">
+                        <span className="text-[9px] font-mono text-indigo-600 dark:text-indigo-400 font-bold uppercase tracking-widest bg-indigo-500/10 px-2 py-0.5 rounded border border-indigo-500/20">
                           {p.category}
                         </span>
-                        <div className="px-2.5 py-0.5 bg-zinc-900 border border-zinc-800 text-[10px] font-mono text-emerald-400 rounded">
+                        <div className="px-2.5 py-0.5 bg-muted border border-border text-[10px] font-mono text-emerald-600 dark:text-emerald-400 rounded">
                           {p.metric.label}: {p.metric.value}
                         </div>
                       </div>
 
-                      <h3 className="text-xl font-bold text-white tracking-tight">{p.title}</h3>
+                      <h3 className="text-xl font-bold text-foreground tracking-tight">{p.title}</h3>
                       
-                      <div className="space-y-2 text-xs text-zinc-400 font-sans font-light leading-relaxed">
+                      <div className="space-y-2 text-xs text-muted-foreground font-sans font-light leading-relaxed">
                         <p>
-                          <strong className="text-zinc-300 font-medium">Problem:</strong> {p.problem}
+                          <strong className="text-foreground font-medium">Problem:</strong> {p.problem}
                         </p>
                         <p>
-                          <strong className="text-zinc-300 font-medium">Solution:</strong> {p.solution}
+                          <strong className="text-foreground font-medium">Solution:</strong> {p.solution}
                         </p>
                       </div>
 
                       {/* Tech stack */}
                       <div className="space-y-1">
-                        <span className="text-[9px] font-mono text-zinc-500 uppercase block">Engine Stack</span>
+                        <span className="text-[9px] font-mono text-muted-foreground uppercase block">Engine Stack</span>
                         <div className="flex flex-wrap gap-1">
                           {p.tech.map((t) => (
-                            <span key={t} className="px-1.5 py-0.5 rounded bg-zinc-900 border border-zinc-850 text-[9px] font-mono text-zinc-300">
+                            <span key={t} className="px-1.5 py-0.5 rounded bg-muted border border-border text-[9px] font-mono text-muted-foreground">
                               {t}
                             </span>
                           ))}
@@ -249,12 +249,12 @@ export default function Projects() {
                     </div>
 
                     {/* Action buttons */}
-                    <div className="flex gap-3 border-t border-zinc-900/60 pt-4">
+                    <div className="flex gap-3 border-t border-border pt-4">
                       <a
                         href={p.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex-grow flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-zinc-900 bg-zinc-950 hover:bg-zinc-900 text-zinc-300 hover:text-white font-mono text-[10px] transition-all"
+                        className="flex-grow flex items-center justify-center gap-1.5 px-3 py-2 rounded-lg border border-border bg-muted/60 hover:bg-accent text-foreground font-mono text-[10px] transition-all"
                       >
                         <FaGithub className="w-3.5 h-3.5" />
                         GitHub Code
@@ -264,7 +264,7 @@ export default function Projects() {
                           href={p.demo}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-grow flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-zinc-50 hover:bg-zinc-200 text-black font-mono text-[10px] font-semibold transition-all"
+                          className="flex-grow flex items-center justify-center gap-1 px-3 py-2 rounded-lg bg-primary text-primary-foreground hover:opacity-90 font-mono text-[10px] font-semibold transition-all"
                         >
                           Launch Demo
                           <ArrowUpRight className="w-3.5 h-3.5" />
@@ -275,31 +275,31 @@ export default function Projects() {
 
                   {/* Right Column: Architecture & Interface Preview */}
                   <div className="lg:col-span-7 flex flex-col justify-between gap-4">
-                    <div className="rounded-xl border border-zinc-900/60 bg-zinc-950/20 p-4.5 flex-grow flex flex-col justify-between gap-4">
+                    <div className="rounded-xl border border-border bg-muted/30 p-4.5 flex-grow flex flex-col justify-between gap-4">
                       <div>
-                        <h4 className="text-[10px] font-mono font-semibold text-zinc-500 uppercase tracking-wider mb-2.5">System Architecture Sequence</h4>
+                        <h4 className="text-[10px] font-mono font-semibold text-muted-foreground uppercase tracking-wider mb-2.5">System Architecture Sequence</h4>
                         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                           {p.architecture.map((step, idx) => (
-                            <div key={idx} className="flex items-center gap-2 px-2 py-1.5 bg-zinc-950 border border-zinc-900 rounded-lg text-[9px] font-mono">
-                              <span className="w-4 h-4 rounded-full bg-zinc-900 border border-zinc-800 text-[8px] text-zinc-400 flex items-center justify-center font-bold">
+                            <div key={idx} className="flex items-center gap-2 px-2 py-1.5 bg-card border border-border rounded-lg text-[9px] font-mono">
+                              <span className="w-4 h-4 rounded-full bg-muted border border-border text-[8px] text-muted-foreground flex items-center justify-center font-bold">
                                 0{idx + 1}
                               </span>
-                              <span className="text-zinc-300 truncate">{step}</span>
+                              <span className="text-muted-foreground truncate">{step}</span>
                             </div>
                           ))}
                         </div>
                       </div>
 
                       {/* Code/Interface Mock Preview */}
-                      <div className="relative w-full h-[85px] bg-black/60 border border-zinc-900 rounded-lg p-2.5 font-mono text-[9px] text-zinc-400 overflow-hidden flex flex-col justify-between">
-                        <div className="flex items-center justify-between border-b border-zinc-900/60 pb-1.5 mb-1.5 text-zinc-500 text-[8px]">
+                      <div className="relative w-full h-[85px] bg-slate-950 dark:bg-black/60 border border-border rounded-lg p-2.5 font-mono text-[9px] text-zinc-400 overflow-hidden flex flex-col justify-between">
+                        <div className="flex items-center justify-between border-b border-zinc-800/60 pb-1.5 mb-1.5 text-zinc-400 text-[8px]">
                           <span>system_kernel_trace.log</span>
                           <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
                         </div>
-                        <div className="flex-grow overflow-hidden text-zinc-500 space-y-1">
+                        <div className="flex-grow overflow-hidden text-zinc-400 space-y-1">
                           <div><span className="text-indigo-400">INFO</span> [system] Initializing {p.title} modules...</div>
                           <div><span className="text-emerald-400">OK</span> [kernel] Ingestion components configured successfully.</div>
-                          <div><span className="text-zinc-300">$ curl -X POST /api/v1/infer -d &apos;{"{"}&quot;model&quot;: &quot;{p.id}&quot;{"}"}&apos;</span></div>
+                          <div><span className="text-zinc-200">$ curl -X POST /api/v1/infer -d &apos;{"{"}&quot;model&quot;: &quot;{p.id}&quot;{"}"}&apos;</span></div>
                         </div>
                       </div>
                     </div>
@@ -314,10 +314,10 @@ export default function Projects() {
         {/* ADDITIONAL ENGINEERING REPOSITORIES SECTION */}
         <div className="mt-16">
           <div className="mb-8">
-            <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-zinc-500 uppercase">
+            <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-muted-foreground uppercase">
               Additional Engineering Repositories
             </h2>
-            <p className="text-zinc-400 mt-1 font-sans font-light text-xs">
+            <p className="text-muted-foreground mt-1 font-sans font-light text-xs">
               Functional codebases, libraries, and utilities from my active GitHub workspace.
             </p>
           </div>
@@ -327,30 +327,30 @@ export default function Projects() {
               <SpotlightCard
                 key={p.title}
                 glowColor="rgba(255,255,255,0.01)"
-                className="border-zinc-900 bg-zinc-950/20 p-4 flex flex-col justify-between min-h-[140px]"
+                className="border-border bg-card/60 p-4 flex flex-col justify-between min-h-[140px]"
                 enableTilt={false}
               >
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
-                    <h4 className="font-mono text-xs font-bold text-white tracking-tight">{p.title}</h4>
+                    <h4 className="font-mono text-xs font-bold text-foreground tracking-tight">{p.title}</h4>
                     <a
                       href={p.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-zinc-500 hover:text-white transition-colors"
+                      className="text-muted-foreground hover:text-foreground transition-colors"
                     >
                       <FaGithub className="w-3.5 h-3.5" />
                     </a>
                   </div>
                   
-                  <p className="text-[11px] text-zinc-400 font-sans font-light leading-relaxed">
+                  <p className="text-[11px] text-muted-foreground font-sans font-light leading-relaxed">
                     {p.description}
                   </p>
                 </div>
 
-                <div className="flex flex-wrap gap-1 mt-3 border-t border-zinc-900/60 pt-2">
+                <div className="flex flex-wrap gap-1 mt-3 border-t border-border pt-2">
                   {p.tech.map((t) => (
-                    <span key={t} className="px-1 py-0.5 rounded bg-zinc-900/60 text-[8px] font-mono text-zinc-550">
+                    <span key={t} className="px-1 py-0.5 rounded bg-muted text-[8px] font-mono text-muted-foreground">
                       {t}
                     </span>
                   ))}

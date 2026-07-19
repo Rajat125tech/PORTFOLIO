@@ -65,24 +65,24 @@ const experiences: JobExperience[] = [
 
 export default function Experience() {
   return (
-    <section id="experience" className="py-14 relative bg-black text-white">
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-850 to-transparent" />
+    <section id="experience" className="py-14 relative bg-background text-foreground transition-colors duration-300">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
 
       <div className="container mx-auto px-6 max-w-4xl relative z-10">
         
         {/* Header */}
         <div className="text-center max-w-2xl mx-auto mb-10">
-          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-zinc-500 uppercase">
+          <h2 className="text-xs font-mono font-bold tracking-[0.2em] text-muted-foreground uppercase">
             Work Experience
           </h2>
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white mt-2">
+          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-foreground mt-2">
             Professional Timeline
           </h1>
         </div>
 
         {/* Experience Timeline */}
         <div className="relative">
-          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-[1px] bg-zinc-900" />
+          <div className="absolute left-6 md:left-8 top-0 bottom-0 w-[1px] bg-border" />
 
           <div className="space-y-6">
             {experiences.map((exp, idx) => (
@@ -95,30 +95,30 @@ export default function Experience() {
                 className="relative pl-12 md:pl-20 group"
               >
                 {/* Timeline Dot Badge */}
-                <div className="absolute left-3 md:left-5 top-1.5 w-6 h-6 rounded-full border border-zinc-850 bg-black -translate-x-1/2 flex items-center justify-center z-10">
-                  <Briefcase className="w-3 h-3 text-zinc-500" />
+                <div className="absolute left-3 md:left-5 top-1.5 w-6 h-6 rounded-full border border-border bg-card -translate-x-1/2 flex items-center justify-center z-10 shadow-sm">
+                  <Briefcase className="w-3 h-3 text-muted-foreground" />
                 </div>
 
-                <SpotlightCard glowColor="rgba(129, 140, 248, 0.03)" className="border-zinc-900 bg-zinc-950/40 p-4.5 sm:p-5">
+                <SpotlightCard glowColor="rgba(129, 140, 248, 0.03)" className="border-border bg-card/60 p-4.5 sm:p-5">
                   <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-2 mb-3">
                     <div>
-                      <h3 className="text-lg font-bold text-white leading-tight">{exp.role}</h3>
-                      <span className="text-[11px] text-indigo-400 font-mono block mt-0.5">
+                      <h3 className="text-lg font-bold text-foreground leading-tight">{exp.role}</h3>
+                      <span className="text-[11px] text-indigo-600 dark:text-indigo-400 font-mono block mt-0.5">
                         {exp.organization} &bull; {exp.type}
                       </span>
                     </div>
-                    <span className="px-2.5 py-0.5 bg-zinc-900 border border-zinc-800 text-[9px] font-mono text-zinc-400 rounded whitespace-nowrap self-start md:self-auto">
+                    <span className="px-2.5 py-0.5 bg-muted border border-border text-[9px] font-mono text-muted-foreground rounded whitespace-nowrap self-start md:self-auto">
                       {exp.period}
                     </span>
                   </div>
 
-                  <p className="text-zinc-400 text-xs font-sans font-light leading-relaxed mb-3">
+                  <p className="text-muted-foreground text-xs font-sans font-light leading-relaxed mb-3">
                     {exp.description}
                   </p>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 border-t border-zinc-900/60 pt-3">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 border-t border-border pt-3">
                     {exp.highlights.map((hl) => (
-                      <div key={hl} className="flex items-start gap-1.5 text-[11px] text-zinc-400">
+                      <div key={hl} className="flex items-start gap-1.5 text-[11px] text-muted-foreground">
                         <ChevronRight className="w-3 h-3 text-indigo-500 mt-0.5 flex-shrink-0" />
                         <span>{hl}</span>
                       </div>

@@ -27,22 +27,22 @@ export default function OpenSource() {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-4">
                 <Zap className="w-3 h-3" /> Open Source Contribution
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-white mb-4">
+              <h2 className="text-3xl md:text-5xl font-bold tracking-tighter text-foreground mb-4">
                 Database Kernel Optimization
               </h2>
-              <p className="text-gray-300 text-lg mb-6 max-w-3xl">
+              <p className="text-muted-foreground text-lg mb-6 max-w-3xl">
                 Optimized query execution in <strong>ZerithDB</strong> by implementing cursor-based pagination and early-termination scanning. Significantly reduced memory overhead while handling large datasets.
               </p>
               
               <div className="flex flex-col sm:flex-row items-center gap-6 mb-8">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 flex-grow">
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                    <div className="text-3xl font-bold text-white mb-1">~365x</div>
-                    <div className="text-sm text-gray-400">Latency Improvement</div>
+                  <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="text-3xl font-bold text-foreground mb-1">~365x</div>
+                    <div className="text-sm text-muted-foreground">Latency Improvement</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-white/5 border border-white/5">
-                    <div className="text-3xl font-bold text-white mb-1">10k+</div>
-                    <div className="text-sm text-gray-400">Record Benchmarks</div>
+                  <div className="p-4 rounded-xl bg-card border border-border">
+                    <div className="text-3xl font-bold text-foreground mb-1">10k+</div>
+                    <div className="text-sm text-muted-foreground">Record Benchmarks</div>
                   </div>
                 </div>
                 

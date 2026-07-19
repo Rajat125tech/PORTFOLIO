@@ -58,7 +58,7 @@ export default function SpotlightCard({
         rotateY: rotate.y,
       }}
       transition={{ type: "spring", damping: 25, stiffness: 200, mass: 0.5 }}
-      className={`relative overflow-hidden rounded-2xl border border-zinc-800/80 bg-zinc-950/40 p-6 backdrop-blur-xl transition-shadow duration-300 ${className}`}
+      className={`relative overflow-hidden rounded-2xl border border-border bg-card/70 dark:bg-zinc-950/40 text-card-foreground p-6 backdrop-blur-xl transition-all duration-300 ${className}`}
       {...props}
     >
       {/* Background Spotlight glow */}

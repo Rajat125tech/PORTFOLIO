@@ -4,8 +4,8 @@ import { Award, Code2, Brain, Users, Compass, Activity } from "lucide-react";
 
 export default function About() {
   return (
-    <section id="about" className="py-14 relative bg-black text-white">
-      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-zinc-850 to-transparent" />
+    <section id="about" className="py-14 relative bg-background text-foreground transition-colors duration-300">
+      <div className="absolute top-0 left-0 right-0 h-[1px] bg-gradient-to-r from-transparent via-border to-transparent" />
       <div className="container mx-auto px-6 max-w-5xl relative z-10">
         
         <div className="flex flex-col lg:flex-row gap-10 items-start">
@@ -13,11 +13,11 @@ export default function About() {
           <div className="lg:w-1/2 space-y-5">
             <h2 className="text-2xl md:text-3xl font-bold tracking-tighter">
               Bridging the gap between <br />
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-zinc-200 to-zinc-500">
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-foreground to-muted-foreground">
                 Research &amp; Production.
               </span>
             </h2>
-            <div className="space-y-3.5 text-zinc-400 text-xs sm:text-sm font-sans font-light leading-relaxed">
+            <div className="space-y-3.5 text-muted-foreground text-xs sm:text-sm font-sans font-light leading-relaxed">
               <p>
                 I am a B.Tech Computer Science (AI &amp; ML) student at Vellore Institute of Technology (VIT) Vellore, where I hold the department&apos;s <strong>Rank 1</strong> status with a <strong>9.74 CGPA</strong>.
               </p>
@@ -62,15 +62,15 @@ export default function About() {
               ].map((stat) => (
                 <div
                   key={stat.label}
-                  className="p-4 rounded-xl border border-zinc-900 bg-zinc-950/40 flex flex-col justify-between min-h-[110px]"
+                  className="p-4 rounded-xl border border-border bg-card/60 flex flex-col justify-between min-h-[110px]"
                 >
-                  <div className="w-8 h-8 rounded bg-zinc-900 border border-zinc-800 flex items-center justify-center text-zinc-400">
+                  <div className="w-8 h-8 rounded bg-muted border border-border flex items-center justify-center text-muted-foreground">
                     <stat.icon className="w-4 h-4" />
                   </div>
                   <div className="mt-2.5">
-                    <span className="text-base font-bold font-mono text-white block">{stat.value}</span>
-                    <span className="text-[10px] font-mono text-indigo-400 block mt-0.5">{stat.label}</span>
-                    <span className="text-[9px] text-zinc-500 block mt-0.5 font-sans leading-tight">{stat.subtext}</span>
+                    <span className="text-base font-bold font-mono text-foreground block">{stat.value}</span>
+                    <span className="text-[10px] font-mono text-indigo-500 dark:text-indigo-400 block mt-0.5">{stat.label}</span>
+                    <span className="text-[9px] text-muted-foreground block mt-0.5 font-sans leading-tight">{stat.subtext}</span>
                   </div>
                 </div>
               ))}
@@ -78,25 +78,25 @@ export default function About() {
 
             {/* Horizontal cards for Currently Working On & Research Focus */}
             <div className="grid grid-cols-1 gap-3 w-full">
-              <div className="p-4 rounded-xl border border-zinc-900 bg-zinc-950/40 flex items-start gap-3">
-                <div className="w-8 h-8 rounded bg-zinc-900 border border-zinc-800 flex items-center justify-center text-emerald-400 flex-shrink-0">
+              <div className="p-4 rounded-xl border border-border bg-card/60 flex items-start gap-3">
+                <div className="w-8 h-8 rounded bg-muted border border-border flex items-center justify-center text-emerald-500 dark:text-emerald-400 flex-shrink-0">
                   <Activity className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-emerald-400 font-bold block uppercase tracking-wider">Currently Working On</span>
-                  <p className="text-[11px] text-zinc-300 font-sans font-light mt-1 leading-relaxed">
+                  <span className="text-[10px] font-mono text-emerald-600 dark:text-emerald-400 font-bold block uppercase tracking-wider">Currently Working On</span>
+                  <p className="text-[11px] text-muted-foreground font-sans font-light mt-1 leading-relaxed">
                     Deep Learning Research Internship @ IIT Jodhpur, developing ML models for fetal ultrasound segmentation.
                   </p>
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl border border-zinc-900 bg-zinc-950/40 flex items-start gap-3">
-                <div className="w-8 h-8 rounded bg-zinc-900 border border-zinc-800 flex items-center justify-center text-indigo-400 flex-shrink-0">
+              <div className="p-4 rounded-xl border border-border bg-card/60 flex items-start gap-3">
+                <div className="w-8 h-8 rounded bg-muted border border-border flex items-center justify-center text-indigo-500 dark:text-indigo-400 flex-shrink-0">
                   <Compass className="w-4 h-4" />
                 </div>
                 <div>
-                  <span className="text-[10px] font-mono text-indigo-400 font-bold block uppercase tracking-wider">Research Focus &amp; Interests</span>
-                  <p className="text-[11px] text-zinc-300 font-sans font-light mt-1 leading-relaxed">
+                  <span className="text-[10px] font-mono text-indigo-600 dark:text-indigo-400 font-bold block uppercase tracking-wider">Research Focus &amp; Interests</span>
+                  <p className="text-[11px] text-muted-foreground font-sans font-light mt-1 leading-relaxed">
                     State-space models (Vision Mamba), high-performance inference optimization, and database kernel systems.
                   </p>
                 </div>

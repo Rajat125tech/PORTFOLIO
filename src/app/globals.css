@@ -1,15 +1,20 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #030303;
-  --muted: #f4f4f5;
-  --muted-foreground: #71717a;
-  --primary: #030303;
+  --background: #f8fafc;
+  --foreground: #09090b;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --primary: #09090b;
   --primary-foreground: #ffffff;
-  --border: #e4e4e7;
-  --accent: #f4f4f5;
-  --accent-foreground: #030303;
+  --border: #e2e8f0;
+  --accent: #f1f5f9;
+  --accent-foreground: #09090b;
+  --card: #ffffff;
+  --card-foreground: #09090b;
+  --card-border: #e2e8f0;
 }
 
 .dark {
@@ -22,6 +27,9 @@
   --border: #222222;
   --accent: #111111;
   --accent-foreground: #ffffff;
+  --card: #09090b;
+  --card-foreground: #ffffff;
+  --card-border: #18181b;
 }
 
 @theme inline {
@@ -34,6 +42,9 @@
   --color-border: var(--border);
   --color-accent: var(--accent);
   --color-accent-foreground: var(--accent-foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-card-border: var(--card-border);
   
   --animate-spin-slow: spin 8s linear infinite;
   --animate-spin-slow-reverse: spin 12s linear infinite reverse;
@@ -71,15 +82,21 @@ body {
   background: var(--background); 
 }
 ::-webkit-scrollbar-thumb {
-  background: #333; 
+  background: #cbd5e1; 
   border-radius: 4px;
 }
+.dark ::-webkit-scrollbar-thumb {
+  background: #333; 
+}
 ::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8; 
+}
+.dark ::-webkit-scrollbar-thumb:hover {
   background: #555; 
 }
 
 .glass {
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.7);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border: 1px solid rgba(0, 0, 0, 0.08);
@@ -108,3 +125,4 @@ body {
   background-image: linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
     linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
 }
+
