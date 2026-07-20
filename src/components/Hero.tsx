@@ -60,8 +60,9 @@ export default function Hero() {
               </a>
 
               <a
-                href="/resume.pdf"
+                href="https://drive.google.com/file/d/1zafc1bZCDi728F4_Z3Mv6JbymeJUGOiN/view?usp=sharing"
                 target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-6 py-3 bg-card border border-border text-foreground hover:bg-accent font-mono text-sm rounded-xl transition-all shadow-sm"
               >
                 <Download className="w-4 h-4" />

@@ -63,8 +63,9 @@ export default function Navbar() {
             </Link>
           ))}
           <a
-            href="/resume.pdf"
+            href="https://drive.google.com/file/d/1zafc1bZCDi728F4_Z3Mv6JbymeJUGOiN/view?usp=sharing"
             target="_blank"
+            rel="noopener noreferrer"
             className="px-5 py-2 rounded-full bg-primary text-primary-foreground font-semibold text-sm hover:scale-105 transition-transform"
           >
             Resume
@@ -104,8 +105,9 @@ export default function Navbar() {
               </Link>
             ))}
             <a
-              href="/resume.pdf"
+              href="https://drive.google.com/file/d/1zafc1bZCDi728F4_Z3Mv6JbymeJUGOiN/view?usp=sharing"
               target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setMobileMenuOpen(false)}
               className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold text-center mt-4"
             >
