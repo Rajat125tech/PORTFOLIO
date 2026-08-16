@@ -30,7 +30,7 @@ export default function Hero() {
               </span>
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-border bg-accent/60 text-muted-foreground text-xs font-mono">
                 <BookOpen className="w-3.5 h-3.5 text-emerald-500 dark:text-emerald-400" />
-                350+ LeetCode Problems
+                430+ LeetCode Problems
               </span>
             </div>
 

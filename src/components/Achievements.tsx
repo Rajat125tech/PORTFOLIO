@@ -27,9 +27,9 @@ const realAchievements: Achievement[] = [
     color: "text-emerald-500"
   },
   {
-    title: "350+ LeetCode DSA",
-    metric: "350+ Problems",
-    description: "Solved 350+ data structures and algorithms challenges across LeetCode and competitive programming platforms.",
+    title: "430+ LeetCode DSA",
+    metric: "430+ Problems",
+    description: "Solved 430+ data structures and algorithms challenges across LeetCode and competitive programming platforms.",
     icon: Target,
     color: "text-blue-500"
   },

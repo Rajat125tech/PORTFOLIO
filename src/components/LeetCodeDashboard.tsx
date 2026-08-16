@@ -29,10 +29,10 @@ function CountUp({ value }: { value: number }) {
 }
 
 export default function LeetCodeDashboard() {
-  const [total, setTotal] = useState(364);
-  const [easy, setEasy] = useState(90);
-  const [medium, setMedium] = useState(227);
-  const [hard, setHard] = useState(47);
+  const [total, setTotal] = useState(431);
+  const [easy, setEasy] = useState(99);
+  const [medium, setMedium] = useState(278);
+  const [hard, setHard] = useState(54);
   
   // Circle metrics
   const radius = 58;
@@ -44,82 +44,71 @@ export default function LeetCodeDashboard() {
   const hardOffset = total > 0 ? circ - (circ * hard) / total : circ;
 
   // Real-time states
-  const [realStreak, setRealStreak] = useState(40); // verified fallback
+  const [realStreak, setRealStreak] = useState(50); // verified fallback
   const [realHeatmap, setRealHeatmap] = useState<number[][]>([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Fetch solved question counts dynamically
-    fetch("https://alfa-leetcode-api.onrender.com/RAJATSRIV/solved")
+    // Fetch live LeetCode stats via server API route
+    fetch("/api/leetcode")
       .then((res) => {
-        if (!res.ok) throw new Error("Solved API Offline");
+        if (!res.ok) throw new Error("API Route Offline");
         return res.json();
       })
       .then((data) => {
         if (data) {
-          if (typeof data.solvedProblem === "number") setTotal(data.solvedProblem);
-          if (typeof data.easySolved === "number") setEasy(data.easySolved);
-          if (typeof data.mediumSolved === "number") setMedium(data.mediumSolved);
-          if (typeof data.hardSolved === "number") setHard(data.hardSolved);
-        }
-      })
-      .catch((err) => {
-        console.warn("Using fallback LeetCode solved metrics:", err);
-      });
+          if (typeof data.total === "number") setTotal(data.total);
+          if (typeof data.easy === "number") setEasy(data.easy);
+          if (typeof data.medium === "number") setMedium(data.medium);
+          if (typeof data.hard === "number") setHard(data.hard);
+          if (typeof data.streak === "number") setRealStreak(data.streak);
 
-    // Fetch calendar & streak dynamically
-    fetch("https://alfa-leetcode-api.onrender.com/RAJATSRIV/calendar")
-      .then((res) => {
-        if (!res.ok) throw new Error("API Offline");
-        return res.json();
-      })
-      .then((data) => {
-        if (data && data.submissionCalendar) {
-          if (data.streak !== undefined) {
-            setRealStreak(data.streak);
-          }
-          const calendar = JSON.parse(data.submissionCalendar);
-          
-          // Generate past 15 weeks of calendar days
-          const weeks: number[][] = [];
-          const today = new Date();
-          const startDate = new Date(today);
-          startDate.setDate(today.getDate() - 15 * 7);
-          
-          let currentDate = new Date(startDate);
-          for (let w = 0; w < 15; w++) {
-            const week: number[] = [];
-            for (let d = 0; d < 7; d++) {
-              const startOfDay = Math.floor(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime() / 1000);
-              const endOfDay = startOfDay + 86400;
-              
-              let daySubmissions = 0;
-              Object.keys(calendar).forEach((timestamp) => {
-                const ts = Number(timestamp);
-                if (ts >= startOfDay && ts < endOfDay) {
-                  daySubmissions += calendar[timestamp];
+          if (data.submissionCalendar) {
+            const calendar = typeof data.submissionCalendar === "string"
+              ? JSON.parse(data.submissionCalendar)
+              : data.submissionCalendar;
+            
+            // Generate past 15 weeks of calendar days
+            const weeks: number[][] = [];
+            const today = new Date();
+            const startDate = new Date(today);
+            startDate.setDate(today.getDate() - 15 * 7);
+            
+            let currentDate = new Date(startDate);
+            for (let w = 0; w < 15; w++) {
+              const week: number[] = [];
+              for (let d = 0; d < 7; d++) {
+                const startOfDay = Math.floor(new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate()).getTime() / 1000);
+                const endOfDay = startOfDay + 86400;
+                
+                let daySubmissions = 0;
+                Object.keys(calendar).forEach((timestamp) => {
+                  const ts = Number(timestamp);
+                  if (ts >= startOfDay && ts < endOfDay) {
+                    daySubmissions += calendar[timestamp];
+                  }
+                });
+                
+                let level = 0;
+                if (daySubmissions > 0) {
+                  if (daySubmissions <= 2) level = 1;
+                  else if (daySubmissions <= 5) level = 2;
+                  else if (daySubmissions <= 9) level = 3;
+                  else level = 4;
                 }
-              });
-              
-              let level = 0;
-              if (daySubmissions > 0) {
-                if (daySubmissions <= 2) level = 1;
-                else if (daySubmissions <= 5) level = 2;
-                else if (daySubmissions <= 9) level = 3;
-                else level = 4;
+                
+                week.push(level);
+                currentDate.setDate(currentDate.getDate() + 1);
               }
-              
-              week.push(level);
-              currentDate.setDate(currentDate.getDate() + 1);
+              weeks.push(week);
             }
-            weeks.push(week);
+            setRealHeatmap(weeks);
+            setLoading(false);
           }
-          setRealHeatmap(weeks);
-          setLoading(false);
         }
       })
       .catch((err) => {
-        console.warn("Using offline LeetCode heatmap fallback:", err);
+        console.warn("Using baseline fallback LeetCode metrics:", err);
         const fallbackWeeks: number[][] = Array.from({ length: 15 }, () =>
           Array.from({ length: 7 }, () => (Math.random() > 0.75 ? Math.floor(Math.random() * 3) : 0))
         );

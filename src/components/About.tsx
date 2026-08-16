@@ -43,7 +43,7 @@ export default function About() {
                 },
                 {
                   icon: Code2,
-                  value: "350+",
+                  value: "430+",
                   label: "DSA Solved",
                   subtext: "Across LeetCode & platforms"
                 },
